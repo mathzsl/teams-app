@@ -6,6 +6,7 @@ import { Header } from "@components/Header";
 import { GroupCard } from "@components/GroupCard";
 import { ListEmpty } from "@components/ListEmpty";
 import { FlatList } from "react-native";
+import { Button } from "@components/Button";
 
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([]);
@@ -21,11 +22,13 @@ export function Groups() {
         data={groups}
         keyExtractor={(item) => String(item)}
         renderItem={({ item }) => <GroupCard title={String(item)} />}
-        contentContainerStyle={!groups.length && { flex: 1 }}
+        contentContainerStyle={!groups.length && { flex: 1, marginBottom: 20 }}
         ListEmptyComponent={() => (
           <ListEmpty message="Ops, você não possui nenhum grupo cadastrado..." />
         )}
       />
+
+      <Button title="Criar nova turma" />
     </Container>
   );
 }
