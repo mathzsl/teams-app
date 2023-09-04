@@ -1,16 +1,14 @@
 import { useState } from "react";
 
 import { Highlight } from "@components/Highlight";
-import { Container, GroupList } from "./styles";
+import { Container } from "./styles";
 import { Header } from "@components/Header";
 import { GroupCard } from "@components/GroupCard";
+import { ListEmpty } from "@components/ListEmpty";
+import { FlatList } from "react-native";
 
 export function Groups() {
-  const [groups, setGroups] = useState<string[]>([
-    "Os Cuecas",
-    "Gangue do Ovo",
-    'Gangue dos Bananas'
-  ]);
+  const [groups, setGroups] = useState<string[]>([]);
 
   return (
     <Container>
@@ -18,11 +16,15 @@ export function Groups() {
 
       <Highlight title="Turmas" description="jogue com a sua turma" />
 
-      <GroupList
+      <FlatList
         showsVerticalScrollIndicator={false}
         data={groups}
         keyExtractor={(item) => String(item)}
         renderItem={({ item }) => <GroupCard title={String(item)} />}
+        contentContainerStyle={!groups.length && { flex: 1 }}
+        ListEmptyComponent={() => (
+          <ListEmpty message="Ops, você não possui nenhum grupo cadastrado..." />
+        )}
       />
     </Container>
   );
