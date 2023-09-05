@@ -1,4 +1,4 @@
-import { styled } from "styled-components/native";
+import { styled, css } from "styled-components/native";
 import { ShieldHalf } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 
@@ -19,9 +19,12 @@ export const Title = styled.Text.attrs(() => ({
   numberOfLines: 2,
 }))`
   flex: 1;
-  font-size: ${({ theme }) => theme.FONT_SIZE.LG}px;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-  color: ${({ theme }) => theme.COLORS.GRAY_100};
+
+  ${({ theme }) => css`
+    font-size: ${theme.FONT_SIZE.LG}px;
+    font-family: ${theme.FONT_FAMILY.REGULAR};
+    color: ${theme.COLORS.GRAY_100};
+  `}
 `;
 
 export const Icon = styled(ShieldHalf).attrs(({ theme }) => ({

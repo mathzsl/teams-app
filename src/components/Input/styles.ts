@@ -1,5 +1,5 @@
 import { TextInput } from "react-native";
-import { styled } from "styled-components/native";
+import { styled, css } from "styled-components/native";
 
 export const Container = styled(TextInput).attrs(({ theme }) => ({
   placeholderTextColor: theme.COLORS.GRAY_300,
@@ -9,8 +9,11 @@ export const Container = styled(TextInput).attrs(({ theme }) => ({
   max-height: 56px;
   padding: 16px;
   border-radius: 6px;
-  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-  color: ${({ theme }) => theme.COLORS.WHITE};
-  background-color: ${({ theme }) => theme.COLORS.GRAY_700};
+
+  ${({ theme }) => css`
+    font-size: ${theme.FONT_SIZE.MD}px;
+    font-family: ${theme.FONT_FAMILY.REGULAR};
+    color: ${theme.COLORS.WHITE};
+    background-color: ${theme.COLORS.GRAY_700};
+  `}
 `;
