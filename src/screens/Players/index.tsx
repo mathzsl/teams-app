@@ -1,16 +1,21 @@
-import { ButtonIcon } from "@components/ButtonIcon";
+import { useState } from "react";
+import { FlatList } from "react-native";
+
 import { Container, Form, HeaderList, HeaderListCount } from "./styles";
 
+import { ButtonIcon } from "@components/ButtonIcon";
 import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { Filter } from "@components/Filter";
-import { FlatList } from "react-native";
-import { useState } from "react";
+import { PlayerCard } from "@components/PlayerCard";
 
 export function Players() {
   const [team, setTeam] = useState("");
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<string[]>([
+    "Matheus Soares",
+    "Yasmin Carvalho",
+  ]);
 
   const countPlayers = players.length;
 
@@ -45,6 +50,15 @@ export function Players() {
 
         <HeaderListCount>{countPlayers}</HeaderListCount>
       </HeaderList>
+
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={players}
+        keyExtractor={(item) => String(item)}
+        renderItem={({ item }) => (
+          <PlayerCard name={item} onRemove={() => {}} />
+        )}
+      />
     </Container>
   );
 }
