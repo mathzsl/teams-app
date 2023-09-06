@@ -1,15 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components/native";
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
+import { NavigationContainer } from "@react-navigation/native";
+
 import theme from "./src/theme";
 
 import { Loading } from "@components/Loading";
-import { Players } from "@screens/Players";
+
+import { AppRoutes } from "@routes/app.routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,7 +23,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar style="inverted" />
-      {!fontsLoaded ? <Loading /> : <Players />}
+      <NavigationContainer>
+        {!fontsLoaded ? <Loading /> : <AppRoutes />}
+      </NavigationContainer>
     </ThemeProvider>
   );
 }

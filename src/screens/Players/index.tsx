@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FlatList } from "react-native";
 
-import { Container, Form, HeaderList, HeaderListCount } from "./styles";
+import { Container, Form, HeaderList, NumberOfPlayer } from "./styles";
 
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Header } from "@components/Header";
@@ -14,7 +14,14 @@ import { Button } from "@components/Button";
 
 export function Players() {
   const [team, setTeam] = useState("");
-  const [players, setPlayers] = useState<string[]>(['Matheus', 'Yasmin', 'Alguma pessoa', 'Hmmm', 'Mais outra', 'Outra pra testar']);
+  const [players, setPlayers] = useState<string[]>([
+    "Matheus",
+    "Yasmin",
+    "Alguma pessoa",
+    "Hmmm",
+    "Mais outra",
+    "Outra pra testar",
+  ]);
 
   const countPlayers = players.length;
 
@@ -47,7 +54,7 @@ export function Players() {
           )}
         />
 
-        <HeaderListCount>{countPlayers}</HeaderListCount>
+        <NumberOfPlayer>{countPlayers}</NumberOfPlayer>
       </HeaderList>
 
       <FlatList
@@ -61,7 +68,7 @@ export function Players() {
         ListEmptyComponent={() => (
           <ListEmpty message="Não há pessoas nesse time." />
         )}
-        style={{marginBottom: 20}} 
+        style={{ marginBottom: 20 }}
       />
 
       <Button title="Remover turma" variant="secondary" />

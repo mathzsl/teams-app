@@ -23,7 +23,7 @@ export const HeaderList = styled.View`
   gap: 20px;
 `;
 
-export const HeaderListCount = styled.Text`
+export const NumberOfPlayer = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.FONT_SIZE.SM}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
