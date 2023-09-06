@@ -9,13 +9,12 @@ import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { Filter } from "@components/Filter";
 import { PlayerCard } from "@components/PlayerCard";
+import { ListEmpty } from "@components/ListEmpty";
+import { Button } from "@components/Button";
 
 export function Players() {
   const [team, setTeam] = useState("");
-  const [players, setPlayers] = useState<string[]>([
-    "Matheus Soares",
-    "Yasmin Carvalho",
-  ]);
+  const [players, setPlayers] = useState<string[]>(['Matheus', 'Yasmin', 'Alguma pessoa', 'Hmmm', 'Mais outra', 'Outra pra testar']);
 
   const countPlayers = players.length;
 
@@ -58,7 +57,14 @@ export function Players() {
         renderItem={({ item }) => (
           <PlayerCard name={item} onRemove={() => {}} />
         )}
+        contentContainerStyle={!players.length && { flex: 1, marginBottom: 20 }}
+        ListEmptyComponent={() => (
+          <ListEmpty message="Não há pessoas nesse time." />
+        )}
+        style={{marginBottom: 20}} 
       />
+
+      <Button title="Remover turma" variant="secondary" />
     </Container>
   );
 }
