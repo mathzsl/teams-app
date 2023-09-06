@@ -14,19 +14,19 @@ export const Container = styled(TouchableOpacity)<FilterStyleProps>`
 
   width: 70px;
   height: 38px;
-
   border-radius: 4px;
+  margin-right: 12px;
 
   justify-content: center;
   align-items: center;
 `;
 
-export const Title = styled.Text.attrs(() => ({}))`
+export const Title = styled.Text<FilterStyleProps>`
   text-transform: uppercase;
 
   ${({ theme }) => css`
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.SM}px;
-    color: ${theme.COLORS.WHITE};
+    color: ${theme.COLORS.GRAY_200};
   `}
 `;
