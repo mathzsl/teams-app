@@ -6,13 +6,10 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import { NavigationContainer } from "@react-navigation/native";
-
 import theme from "./src/theme";
 
+import { Routes } from "./src/routes";
 import { Loading } from "@components/Loading";
-
-import { AppRoutes } from "@routes/app.routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,9 +20,8 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar style="inverted" />
-      <NavigationContainer>
-        {!fontsLoaded ? <Loading /> : <AppRoutes />}
-      </NavigationContainer>
+
+      {!fontsLoaded ? <Loading /> : <Routes />}
     </ThemeProvider>
   );
 }

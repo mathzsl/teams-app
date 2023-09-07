@@ -1,10 +1,11 @@
+import { SafeAreaView } from "react-native-safe-area-context";
 import { ShieldHalf } from "lucide-react-native";
 import { styled } from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled(SafeAreaView)`
   flex: 1;
 
-  padding: 42px 24px;
+  padding: 24px;
   background-color: ${({ theme }) => theme.COLORS.GRAY_600};
 `;
 
