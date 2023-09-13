@@ -7,14 +7,20 @@ import { Highlight } from "@components/Highlight";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { useNavigation } from "@react-navigation/native";
+import { groupCreate } from "@storage/group/groupCreate";
 
 export function NewGroup() {
   const [group, setGroup] = useState("");
 
   const navigation = useNavigation();
 
-  function handleCreateNewGroup() {
-    navigation.navigate("players", { group });
+  async function handleCreateNewGroup() {
+    try {
+      await groupCreate(group);
+      navigation.navigate("players", { group });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
