@@ -21,6 +21,10 @@ export function Groups() {
     navigation.navigate("new");
   }
 
+  function handleOpenGroup(group: string) {
+    navigation.navigate("players", { group });
+  }
+
   async function fetchGroups() {
     try {
       const data = await groupsGetAll();
@@ -46,7 +50,12 @@ export function Groups() {
         showsVerticalScrollIndicator={false}
         data={groups}
         keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <GroupCard title={String(item)} />}
+        renderItem={({ item }) => (
+          <GroupCard
+            title={String(item)}
+            onPress={() => handleOpenGroup(item)}
+          />
+        )}
         contentContainerStyle={!groups.length && { flex: 1, marginBottom: 20 }}
         ListEmptyComponent={() => (
           <ListEmpty message="Ops, você não possui nenhum grupo cadastrado..." />
