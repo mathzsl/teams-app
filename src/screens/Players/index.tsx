@@ -8,6 +8,7 @@ import { AppError } from "@utils/AppError";
 import { PlayerAddByGroup } from "@storage/players/playerAddByGroup";
 import { PlayerStorageDTO } from "@storage/players/PlayerStorageDTO";
 import { getPlayersByGroupAndTeam } from "@storage/players/getPlayersByGroupAndTeam";
+import { playerRemoveByGroup } from "@storage/players/playerRemoveByGroup";
 
 import { Container, Form, HeaderList, NumberOfPlayer } from "./styles";
 
@@ -60,6 +61,16 @@ export function Players() {
         console.log(error);
         Alert.alert("Novo jogador", "Não foi possível adicionar.");
       }
+    }
+  }
+
+  async function handleRemovePlayer(playerName: string) {
+    try {
+      await playerRemoveByGroup(group, playerName);
+      fetchPlayersByTeam();
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Remover jogador", "Não foi possível remover o jogador.");
     }
   }
 
@@ -125,7 +136,10 @@ export function Players() {
         data={players}
         keyExtractor={(item) => String(item.name)}
         renderItem={({ item }) => (
-          <PlayerCard name={item.name} onRemove={() => {}} />
+          <PlayerCard
+            name={item.name}
+            onRemove={() => handleRemovePlayer(item.name)}
+          />
         )}
         contentContainerStyle={!players.length && { flex: 1, marginBottom: 20 }}
         ListEmptyComponent={() => (
