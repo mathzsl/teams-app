@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 
 import { useRoute } from "@react-navigation/native";
 
@@ -16,25 +16,50 @@ import { PlayerCard } from "@components/PlayerCard";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
 
+import { PlayerAddByGroup } from "@storage/players/playerAddByGroup";
+import { PlayerStorageDTO } from "@storage/players/PlayerStorageDTO";
+import { AppError } from "@utils/AppError";
+import { getPlayersByGroup } from "@storage/players/getPlayersByGroup";
+
 type RouteParams = {
   group: string;
 };
 
 export function Players() {
-  const [team, setTeam] = useState("");
-  const [players, setPlayers] = useState<string[]>([
-    "Matheus",
-    "Yasmin",
-    "Alguma pessoa",
-    "Hmmm",
-    "Mais outra",
-    "Outra pra testar",
-  ]);
+  const [newPlayerName, setNewPlayerName] = useState("");
+  const [team, setTeam] = useState("Time A");
+  const [players, setPlayers] = useState([]);
+
 
   const route = useRoute();
   const { group } = route.params as RouteParams;
 
   const countPlayers = players.length;
+
+  async function handleAddPlayer() {
+    if (!newPlayerName.trim()) {
+      return Alert.alert("Novo jogador", "Informe o nome do jogador.");
+    }
+
+    const newPlayer: PlayerStorageDTO = {
+      name: newPlayerName,
+      team,
+    };
+
+    try {
+      await PlayerAddByGroup(newPlayer, group);
+      const players = await getPlayersByGroup(group)
+      console.log(players)
+
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert("Novo jogador", error.message);
+      } else {
+        console.log(error);
+        Alert.alert("Novo jogador", "Não foi possível adicionar.");
+      }
+    }
+  }
 
   return (
     <Container>
@@ -46,15 +71,20 @@ export function Players() {
       />
 
       <Form>
-        <Input placeholder="Nome do participante" autoCorrect={false} />
-        <ButtonIcon icon="add" />
+        <Input
+          placeholder="Nome do participante"
+          autoCorrect={false}
+          value={newPlayerName}
+          onChangeText={setNewPlayerName}
+        />
+        <ButtonIcon icon="add" onPress={handleAddPlayer} />
       </Form>
 
       <HeaderList>
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={["Time A", "Time B", "Time C", "Time D", "Time f"]}
+          data={["Time A", "Time B"]}
           keyExtractor={(item) => String(item)}
           renderItem={({ item }) => (
             <Filter
