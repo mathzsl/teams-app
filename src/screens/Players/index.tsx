@@ -36,7 +36,6 @@ export function Players() {
   const route = useRoute();
   const { group } = route.params as RouteParams;
 
-
   const navigation = useNavigation();
 
   const countPlayers = players.length;
@@ -109,14 +108,14 @@ export function Players() {
 
       const playersByTeam = await getPlayersByGroupAndTeam(group, team);
       setPlayers(playersByTeam);
-
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
       Alert.alert(
         "Jogadores",
         "Não foi possível carregar os jogadores do time selecionado."
       );
+    } finally {
+      setIsLoading(false);
     }
   }
 
